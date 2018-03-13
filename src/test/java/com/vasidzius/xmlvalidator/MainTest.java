@@ -53,6 +53,19 @@ public class MainTest {
         assertTrue(sysOut.asString().contains("Look for results in xml_validator.log"));
     }
 
+
+    @Test
+    public void dtdFailedValidation() {
+        String[] args = {
+                "dtdvalidate",
+                "-xml",
+                "dtdfailedtest.xml"
+        };
+        Main.main(args);
+        assertTrue(sysOut.asString().contains("Validation is false"));
+        assertTrue(sysOut.asString().contains("Look for results in xml_validator.log"));
+    }
+
     @Test
     public void dtdValidate() {
         String[] args = {
