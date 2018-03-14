@@ -2,11 +2,15 @@ package com.vasidzius.xmlvalidator;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
+import com.vasidzius.xmlvalidator.api.XMLDTDValidator;
 import com.vasidzius.xmlvalidator.commandline.CommandCount;
 import com.vasidzius.xmlvalidator.commandline.CommandDtdValidate;
 import com.vasidzius.xmlvalidator.commandline.CommandXsdValidate;
+import org.apache.log4j.Logger;
 
 public class Main {
+
+    private static final Logger LOGGER = Logger.getLogger(Main.class);
 
     public static void main(String[] args) {
 
@@ -21,25 +25,23 @@ public class Main {
                     .addCommand("count", count)
                     .build();
             jCommander.parse(args);
+            XMLDTDValidator validator = new XMLDTDValidator();
             if (count.getElementName() != null) {
-                ElementCounter counter = new ElementCounter(count.getXmlUri(), count.getElementName());
-                System.out.printf("Number of %s elements is %s", count.getElementName(), counter.count());
+                int countElements = validator.countElements(count.getElementName(), count.getXmlUri());
+                System.out.printf("Number of %s elements is %s", count.getElementName(), countElements);
             } else if (xsdValidate.getXsdUri() != null) {
-                XsdValidator validator = new XsdValidator(xsdValidate.getXmlUri(), xsdValidate.getXsdUri());
-                boolean validate = validator.xsdValidate();
-                validationOutput(validate);
+                boolean isValid = validator.xsdValidate(xsdValidate.getXsdUri(), xsdValidate.getXmlUri());
+                validationOutput(isValid);
             } else if (dtdValidate.getXmlUri() != null) {
-                DtdValidator validator = new DtdValidator(dtdValidate.getXmlUri());
-                boolean validate = validator.dtdValidate();
-                validationOutput(validate);
+                boolean isValid = validator.dtdValidate(dtdValidate.getXmlUri());
+                validationOutput(isValid);
             } else {
                 jCommander.usage();
             }
         } catch (ParameterException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
             e.getJCommander().usage();
         }
-
     }
 
     private static void validationOutput(boolean validate) {

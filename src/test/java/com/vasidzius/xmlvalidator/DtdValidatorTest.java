@@ -1,9 +1,8 @@
 package com.vasidzius.xmlvalidator;
 
+import com.vasidzius.xmlvalidator.model.DtdValidator;
+import com.vasidzius.xmlvalidator.model.SAXParserProvider;
 import org.junit.Test;
-
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -11,17 +10,19 @@ import static org.junit.Assert.assertTrue;
 public class DtdValidatorTest {
 
     @Test
-    public void successDtdValidation() throws IOException, ParserConfigurationException {
+    public void successDtdValidation() {
         String pathToXml = getClass().getResource("note_success.xml").getPath();
-        DtdValidator validator = new DtdValidator(pathToXml);
-        assertTrue(validator.dtdValidate());
+        SAXParserProvider parserProvider = new SAXParserProvider();
+        DtdValidator validator = new DtdValidator(parserProvider);
+        assertTrue(validator.dtdValidate(pathToXml));
     }
 
     @Test
-    public void failedDtdValidation() throws IOException, ParserConfigurationException {
+    public void failedDtdValidation() {
         String pathToXml = getClass().getResource("note_failed.xml").getPath();
-        DtdValidator validator = new DtdValidator(pathToXml);
-        assertFalse(validator.dtdValidate());
+        SAXParserProvider parserProvider = new SAXParserProvider();
+        DtdValidator validator = new DtdValidator(parserProvider);
+        assertFalse(validator.dtdValidate(pathToXml));
     }
 
 }

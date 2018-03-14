@@ -1,4 +1,4 @@
-package com.vasidzius.xmlvalidator;
+package com.vasidzius.xmlvalidator.model;
 
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXParseException;
