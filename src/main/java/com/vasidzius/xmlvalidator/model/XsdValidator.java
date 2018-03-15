@@ -1,6 +1,5 @@
 package com.vasidzius.xmlvalidator.model;
 
-import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
@@ -15,9 +14,7 @@ import java.net.MalformedURLException;
 
 public class XsdValidator {
 
-    private final static Logger LOGGER = Logger.getLogger(XsdValidator.class);
-
-    public boolean xsdValidate(String pathToXml, String pathToXsd) {
+    public boolean xsdValidate(String pathToXml, String pathToXsd) throws IOException, SAXException {
         Schema schema = getXsdSchema(pathToXsd);
         Validator validator = schema.newValidator();
         CustomErrorHandler errorHandler = new CustomErrorHandler();
@@ -27,24 +24,12 @@ public class XsdValidator {
         return errorHandler.isValidationSuccess();
     }
 
-    private void validate(Validator validator, Source source) {
-        try {
+    private void validate(Validator validator, Source source) throws IOException, SAXException {
             validator.validate(source);
-        } catch (SAXException | IOException e) {
-            String message = "Error during parsing xml occurred";
-            LOGGER.error(message, e);
-            throw new RuntimeException(message, e);
-        }
     }
 
-    private Schema getXsdSchema(String pathToXsd) {
-        try {
+    private Schema getXsdSchema(String pathToXsd) throws MalformedURLException, SAXException {
             SchemaFactory xsdSchemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             return xsdSchemaFactory.newSchema(new File(pathToXsd).toURI().toURL());
-        } catch (MalformedURLException | SAXException e) {
-            String message = "Error during parsing xsd occurred";
-            LOGGER.error(message, e);
-            throw new RuntimeException(message, e);
-        }
     }
 }

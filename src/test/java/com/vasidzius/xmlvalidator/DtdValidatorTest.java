@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 public class DtdValidatorTest {
 
     @Test
-    public void successDtdValidation() {
+    public void successDtdValidation() throws Exception {
         String pathToXml = getClass().getResource("note_success.xml").getPath();
         SAXParserProvider parserProvider = new SAXParserProvider();
         DtdValidator validator = new DtdValidator(parserProvider);
@@ -18,7 +18,7 @@ public class DtdValidatorTest {
     }
 
     @Test
-    public void failedDtdValidation() {
+    public void failedDtdValidation() throws Exception{
         String pathToXml = getClass().getResource("note_failed.xml").getPath();
         SAXParserProvider parserProvider = new SAXParserProvider();
         DtdValidator validator = new DtdValidator(parserProvider);

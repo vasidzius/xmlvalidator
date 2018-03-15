@@ -4,6 +4,9 @@ import com.vasidzius.xmlvalidator.model.DtdValidator;
 import com.vasidzius.xmlvalidator.model.ElementCounter;
 import com.vasidzius.xmlvalidator.model.SAXParserProvider;
 import com.vasidzius.xmlvalidator.model.XsdValidator;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
 
 public class XMLDTDValidator {
 
@@ -18,15 +21,15 @@ public class XMLDTDValidator {
         elementCounter = new ElementCounter(parserProvider);
     }
 
-    public boolean xsdValidate(String pathToXsd, String pathToXml) {
+    public boolean xsdValidate(String pathToXsd, String pathToXml) throws IOException, SAXException {
         return xsdValidator.xsdValidate(pathToXml, pathToXsd);
     }
 
-    public boolean dtdValidate(String pathToXml) {
+    public boolean dtdValidate(String pathToXml) throws IOException, SAXException {
         return dtdValidator.dtdValidate(pathToXml);
     }
 
-    public int countElements(String elementName, String pathToXml) {
+    public int countElements(String elementName, String pathToXml) throws IOException, SAXException {
         return elementCounter.count(pathToXml, elementName);
     }
 }

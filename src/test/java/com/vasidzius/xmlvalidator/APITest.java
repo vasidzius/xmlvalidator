@@ -13,7 +13,7 @@ public class APITest {
 
     @Test
     @Parameters
-    public void xsdValidate(String pathToXsd, String pathToXml, boolean expectedResult) {
+    public void xsdValidate(String pathToXsd, String pathToXml, boolean expectedResult) throws Exception{
         XMLDTDValidator validator = new XMLDTDValidator();
         boolean actualResult = validator.xsdValidate(pathToXsd, pathToXml);
         assertEquals(expectedResult, actualResult);
@@ -34,7 +34,7 @@ public class APITest {
 
     @Test
     @Parameters
-    public void dtdValidate(String pathToXml, boolean expectedResult) {
+    public void dtdValidate(String pathToXml, boolean expectedResult) throws Exception{
         XMLDTDValidator validator = new XMLDTDValidator();
         boolean actualResult = validator.dtdValidate(pathToXml);
         assertEquals(expectedResult, actualResult);
@@ -53,7 +53,7 @@ public class APITest {
 
     @Test
     @Parameters
-    public void countElements(String elementName, String pathToXml, int expectedResult) {
+    public void countElements(String elementName, String pathToXml, int expectedResult) throws Exception{
         XMLDTDValidator validator = new XMLDTDValidator();
         int count = validator.countElements(elementName, pathToXml);
         assertEquals(expectedResult, count);

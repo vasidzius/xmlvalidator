@@ -12,7 +12,7 @@ public class MainTest {
     public SystemOutResource sysOut = new SystemOutResource();
 
     @Test
-    public void countTest() {
+    public void countTest() throws Exception{
         String element = "item";
         String[] args = {
                 "count",
@@ -27,7 +27,7 @@ public class MainTest {
     }
 
     @Test
-    public void xsdValidation() {
+    public void xsdValidation() throws Exception{
         String[] args = {
                 "xsdvalidate",
                 "-xsd",
@@ -40,7 +40,7 @@ public class MainTest {
     }
 
     @Test
-    public void xsdFailedValidation() {
+    public void xsdFailedValidation() throws Exception{
         String[] args = {
                 "xsdvalidate",
                 "-xsd",
@@ -55,7 +55,7 @@ public class MainTest {
 
 
     @Test
-    public void dtdFailedValidation() {
+    public void dtdFailedValidation() throws Exception{
         String[] args = {
                 "dtdvalidate",
                 "-xml",
@@ -67,7 +67,7 @@ public class MainTest {
     }
 
     @Test
-    public void dtdValidate() {
+    public void dtdValidate() throws Exception{
         String[] args = {
                 "dtdvalidate",
                 "-xml",

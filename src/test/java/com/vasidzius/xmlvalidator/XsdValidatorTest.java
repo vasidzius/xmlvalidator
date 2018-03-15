@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 public class XsdValidatorTest {
 
     @Test
-    public void successXsdValidation() {
+    public void successXsdValidation() throws Exception{
         String pathToXsd = getClass().getResource("shiporder.xsd").getPath();
         String pathToXml = getClass().getResource("shiporder_success.xml").getPath();
         XsdValidator validator = new XsdValidator();
@@ -17,7 +17,7 @@ public class XsdValidatorTest {
     }
 
     @Test
-    public void failedXsdValidation() {
+    public void failedXsdValidation() throws Exception{
         String pathToXsd = getClass().getResource("shiporder.xsd").getPath();
         String pathToXml = getClass().getResource("shiporder_failed.xml").getPath();
         XsdValidator validator = new XsdValidator();

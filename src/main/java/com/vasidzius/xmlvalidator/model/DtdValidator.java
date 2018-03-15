@@ -1,8 +1,11 @@
 package com.vasidzius.xmlvalidator.model;
 
-import javax.xml.parsers.SAXParser;
+import org.xml.sax.SAXException;
 
-public class DtdValidator extends AbstractXmlHandler {
+import javax.xml.parsers.SAXParser;
+import java.io.IOException;
+
+public class DtdValidator {
 
     private SAXParserProvider parserProvider;
 
@@ -10,10 +13,10 @@ public class DtdValidator extends AbstractXmlHandler {
         this.parserProvider = parserProvider;
     }
 
-    public boolean dtdValidate(String pathToXml) {
+    public boolean dtdValidate(String pathToXml) throws IOException, SAXException{
         CustomErrorHandler handler = new CustomErrorHandler();
         SAXParser parser = parserProvider.getParser(true, true);
-        parse(parser, handler, pathToXml);
+        parser.parse(pathToXml, handler);
         return handler.isValidationSuccess();
     }
 }

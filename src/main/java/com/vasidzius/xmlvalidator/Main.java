@@ -7,12 +7,15 @@ import com.vasidzius.xmlvalidator.commandline.CommandCount;
 import com.vasidzius.xmlvalidator.commandline.CommandDtdValidate;
 import com.vasidzius.xmlvalidator.commandline.CommandXsdValidate;
 import org.apache.log4j.Logger;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
 
 public class Main {
 
     private static final Logger LOGGER = Logger.getLogger(Main.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, SAXException {
 
         CommandCount count = new CommandCount();
         CommandXsdValidate xsdValidate = new CommandXsdValidate();
